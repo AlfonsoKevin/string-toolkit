@@ -39,4 +39,26 @@ public class StringUtils {
         }
         return stringBuilder.toString();
     }
+
+    /**
+     * 线程安全的转换 下划线转换为驼峰式命名
+     * @param underline  下划线式字符串
+     * @return 驼峰式字符串
+     */
+    public static String convertSafeHumpStyle(String underline){
+        if(underline == null || underline.length() == 0) {
+            return "";
+        }
+        String[] parts = underline.split("_");
+        if(parts.length <= 1) {
+            return parts[0];
+        }
+        StringBuffer stringBuffer = new StringBuffer(parts[0]);
+        for (int i = 1; i < parts.length; i++) {
+            //取出首字母,大写
+            String head = parts[i].substring(0, 1).toUpperCase();
+            stringBuffer.append(head).append(parts[i].substring(1));
+        }
+        return stringBuffer.toString();
+    }
 }
